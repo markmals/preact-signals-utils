@@ -1,17 +1,19 @@
 {
-    "name": "package-name",
-    "version": "0.0.0",
-    "description": "",
-    "repository": "markmals/package-name",
+    "name": "preact-signals-utils",
+    "version": "0.1.0",
+    "description": "Reactive utilities for @preact/signals",
+    "repository": "markmals/preact-signals-utils",
     "license": "MIT",
     "sideEffects": false,
     "type": "module",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs"
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
         }
     },
+    "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "files": [
@@ -24,12 +26,21 @@
         "prepack": "unbuild",
         "release": "npm run build && np"
     },
+    "peerDependencies": {
+        "@preact/signals": "^1.1.5",
+        "preact": "^10.15.1"
+    },
     "devDependencies": {
+        "@preact/signals": "^1.1.5",
+        "@rollup/plugin-swc": "^0.1.1",
+        "@rollup/plugin-typescript": "^11.1.2",
+        "np": "latest",
+        "preact": "^10.15.1",
+        "prettier": "latest",
+        "tslib": "^2.6.0",
         "typescript": "latest",
         "unbuild": "latest",
-        "vitest": "latest",
-        "np": "latest",
-        "prettier": "latest"
+        "vitest": "latest"
     },
     "prettier": {
         "printWidth": 100,

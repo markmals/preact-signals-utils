@@ -1,10 +1,22 @@
 {
+    "compileOnSave": false,
     "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "Node",
+        "importHelpers": true,
         "target": "ESNext",
         "module": "ESNext",
-        "moduleResolution": "Node",
-        "esModuleInterop": true,
-        "strict": true
+        "lib": ["ESNext", "DOM"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact"
     },
-    "include": ["src"]
+    "exclude": ["node_modules"],
+    "include": ["**/*.ts", "**/*.tsx"]
 }
