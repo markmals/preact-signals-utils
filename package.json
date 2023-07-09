@@ -1,6 +1,6 @@
 {
     "name": "preact-signals-utils",
-    "version": "0.1.0",
+    "version": "0.0.0",
     "description": "Reactive utilities for @preact/signals",
     "repository": "markmals/preact-signals-utils",
     "license": "MIT",
@@ -20,10 +20,10 @@
         "dist"
     ],
     "scripts": {
-        "build": "unbuild",
+        "build": "tsc -p .",
         "dev": "vitest dev",
         "test": "vitest run",
-        "prepack": "unbuild",
+        "prepack": "npm run build",
         "release": "npm run build && np"
     },
     "peerDependencies": {

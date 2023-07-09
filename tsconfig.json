@@ -3,7 +3,7 @@
     "compilerOptions": {
         "rootDir": ".",
         "sourceMap": true,
-        "declaration": false,
+        "declaration": true,
         "moduleResolution": "Node",
         "importHelpers": true,
         "target": "ESNext",
@@ -12,11 +12,11 @@
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
-        "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "jsx": "react-jsx",
-        "jsxImportSource": "preact"
+        "jsxImportSource": "preact",
+        "outDir": "dist"
     },
-    "exclude": ["node_modules"],
-    "include": ["**/*.ts", "**/*.tsx"]
+    "exclude": ["node_modules", "test"],
+    "include": ["src/**/*"]
 }
