@@ -1,5 +1,4 @@
-import { ReadonlySignal, computed, signal } from "@preact/signals"
-import { untracked } from "./untracked"
+import { ReadonlySignal, computed, signal, untracked } from "@preact/signals"
 
 /**
  * Reactively transforms an array with a callback function - underlying helper for the `<For>` control flow

@@ -1,6 +1,5 @@
-import { computed, effect, signal } from "@preact/signals"
+import { computed, effect, signal, untracked } from "@preact/signals"
 import { describe, expect, test } from "vitest"
-import { untracked } from "../src"
 
 describe("non-reactive reads", () => {
     test("should read the latest value from signal", () => {
@@ -22,15 +21,15 @@ describe("non-reactive reads", () => {
         expect(double.value).toEqual(0)
     })
 
-    // it("should refresh computed value if stale and read non-reactively ", () => {
-    //     const counter = signal(0)
-    //     const double = computed(() => counter.value * 2)
+    test("should refresh computed value if stale and read non-reactively ", () => {
+        const counter = signal(0)
+        const double = computed(() => counter.value * 2)
 
-    //     expect(untracked(() => double.value)).toEqual(0)
+        expect(untracked(() => double.value)).toEqual(0)
 
-    //     counter.value = 2
-    //     expect(untracked(() => double.value)).toEqual(4)
-    // })
+        counter.value = 2
+        expect(untracked(() => double.value)).toEqual(4)
+    })
 
     test("should not make surrounding effect depend on the signal", () => {
         const s = signal(1)
