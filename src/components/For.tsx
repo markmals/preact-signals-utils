@@ -5,7 +5,7 @@ import { Fragment, JSX } from "preact/jsx-runtime"
 import { mapArray } from "../array"
 
 export type SignalChildrenElementType = JSX.ElementType<{
-    children: JSX.SignalLike<ComponentChildren>
+    children: JSX.SignalLike<ComponentChildren> | ComponentChildren
 }>
 
 export namespace For {
@@ -30,12 +30,11 @@ export namespace For {
 export function For<T, Element extends SignalChildrenElementType = typeof Fragment>({
     each,
     children,
-    as,
+    as: Element,
 }: For.Props<T, Element>) {
     // TODO: Automatically key each child
     const childSignal = useMemo(() => mapArray(each, children), [])
-    // const childSignal = useComputed(() => each.value.map(children))
-    const Wrapper = (as as any) || Fragment
+    const Wrapper = (Element as any) || Fragment
     return <Wrapper>{childSignal.value}</Wrapper>
 }
 

@@ -97,9 +97,6 @@ export class Collection<Element> implements JSX.SignalLike<Element[]> {
         this.elements.value = Array.from(currentValuesMap.values())
     }
 
-    // TODO: Patch?
-    // update(item: Partial<Output> | Partial<Output>[]) {}
-
     public delete(item: Element | Element[]) {
         let values: Element[] = Array.isArray(item) ? item : [item]
         this.deletePersisted(item)
@@ -160,6 +157,16 @@ export function useCollection<Element>(
 ): Collection<Element> {
     return useMemo(() => (c instanceof Collection ? c : collection(c)), [])
 }
+
+// interface Database {
+//     collection<T>(name: string): Database.Collection<T>
+// }
+
+// namespace Database {
+//     export interface Collection<T> {
+//         find(): Promise<T>
+//     }
+// }
 
 // TODO: Add more of a database/Mongo/Firebase API?
 

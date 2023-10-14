@@ -8,44 +8,40 @@ describe("map operator", () => {
         const s = signal([1, 2, 3, 4])
         const r = computed(() => mapArray(s, v => v * 2).value)
 
-        // EXPECT: the second array to be the doubled first array
-        expect(r.value).toEqual([2, 4, 6, 8])
+        // Set up reactivity -> synchronous var transformer
+        let arr: number[] = []
+        effect(() => (arr = r.value))
 
+        // EXPECT: ...
+        // the initial value of r to be initial s * 2
+        expect(arr).toEqual([2, 4, 6, 8])
+
+        // WHEN: s.value changes
         s.value = [3, 4, 5]
-        expect(r.value).toEqual([6, 8, 10])
+
+        // EXPECT: ...
+        // the final value of r to be the second vlaue of s * 2
+        expect(arr).toEqual([6, 8, 10])
     })
 
-    test(
-        "updates reactively",
-        async () => {
-            // GIVEN: two signals (an array, and a computed array that doubles each element)
-            const s = signal([1, 2, 3, 4])
-            const r = computed(() => mapArray(s, v => v * 2).value)
+    test("mapArray caches objects and retains object identity", () => {
+        const s = signal([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }])
+        const r = mapArray(s, v => ({ id: v.id * 2 }))
 
-            let reactivity = new Promise<void>(resolve => {
-                let count = 0
+        const initial = r.value[0]
 
-                // EXPECT: ...
-                effect(() => {
-                    if (count < 1) {
-                        // the initial value of r to be initial s * 2
-                        expect(r.value).toEqual([2, 4, 6, 8])
-                        count++
-                    } else {
-                        // the final value of r to be the second vlaue of s * 2
-                        expect(r.value).toEqual([6, 8, 10])
-                        resolve()
-                    }
-                })
-            })
+        const newIdentity = { id: 2 }
+        expect(newIdentity.id === initial.id).toBeTruthy()
+        expect(newIdentity === initial).toBeFalsy()
 
-            // WHEN: s.value changes
-            s.value = [3, 4, 5]
+        s.value = [...s.value.slice(0, 2)]
+        const newValue = r.value[0]
+        expect(initial === newValue).toBeTruthy()
 
-            await reactivity
-        },
-        { timeout: -1 }
-    )
+        s.value = [...s.value, { id: 5 }]
+        expect(initial === r.value[0]).toBeTruthy()
+        expect(newValue === r.value[0]).toBeTruthy()
+    })
 
     // TODO: Implement fallback
     // test("show fallback", () => {

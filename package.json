@@ -20,6 +20,7 @@
         "dist"
     ],
     "scripts": {
+        "playground": "vite",
         "build": "tsc -p .",
         "dev": "vitest dev",
         "test": "vitest run",
@@ -31,7 +32,8 @@
         "preact": "^10.15.1"
     },
     "devDependencies": {
-        "@preact/signals": "^1.1.5",
+        "@preact/preset-vite": "^2.6.0",
+        "@preact/signals": "^1.2.1",
         "@rollup/plugin-swc": "^0.1.1",
         "@rollup/plugin-typescript": "^11.1.2",
         "np": "^8.0.0",
@@ -40,6 +42,7 @@
         "tslib": "^2.6.0",
         "typescript": "latest",
         "unbuild": "latest",
+        "vite": "^4.4.11",
         "vitest": "latest"
     },
     "prettier": {
@@ -50,5 +53,8 @@
     },
     "np": {
         "yarn": false
+    },
+    "dependencies": {
+        "deepsignal": "^1.3.6"
     }
 }
